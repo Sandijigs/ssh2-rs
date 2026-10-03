@@ -183,13 +183,15 @@ fn main() {
         pkgconfig.join("libssh2.pc"),
         fs::read_to_string("libssh2/libssh2.pc.in")
             .unwrap()
-            .replace("@prefix@", dst.to_str().unwrap())
+            .replace("@prefix@", "${pcfiledir}/../..")
             .replace("@exec_prefix@", "")
-            .replace("@libdir@", dst.join("lib").to_str().unwrap())
-            .replace("@includedir@", include.to_str().unwrap())
-            .replace("@LIBS@", "")
-            .replace("@LIBSREQUIRED@", "")
-            .replace("@LIBSSH2VER@", version),
+            .replace("@libdir@", "${prefix}/build")
+            .replace("@includedir@", "${prefix}/include")
+            .replace("@LIBSSH2_PC_REQUIRES@", "")
+            .replace("@LIBSSH2_PC_REQUIRES_PRIVATE@", "")
+            .replace("@LIBSSH2_PC_LIBS@", "")
+            .replace("@LIBSSH2_PC_LIBS_PRIVATE@", "")
+            .replace("@LIBSSH2_VERSION@", version),
     )
     .unwrap();
 
